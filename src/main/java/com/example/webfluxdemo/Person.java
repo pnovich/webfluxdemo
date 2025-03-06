@@ -1,5 +1,8 @@
 package com.example.webfluxdemo;
 
+import org.springframework.data.mongodb.core.mapping.Document;
+
+@Document(collection = "persons")
 public class Person {
     private String id;
     private String name;
