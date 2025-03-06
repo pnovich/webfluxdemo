@@ -41,5 +41,8 @@ public class HelloWorldController {
 //        return Mono.empty();
     }
 
+    @GetMapping("/persons/send")
+    public void sendPerson() {}
+
 
 }

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="https://ga.jspm.io/npm:@stomp/stompjs"></script>
+<!--    <script src="https://ga.jspm.io/npm:@7.0.0/esm6/index.js"></script>-->
+    <meta charset="UTF-8">
+    <title>Weeb sockets</title>
+</head>
+<body>
+<H1>Here in console should be message</H1>
+<button onclick="sendMessage('hi')">button</button>
+</body>
+<script>
+    const connect = () => {
+        const Stomp = require("stompjs");
+        var SockJS = require("sockjs-client");
+        SockJS = new SockJS("http://localhost:8080/ws");
+        stompClient = Stomp.over(SockJS);
+        stompClient.connect({}, onConnected, onError);
+    };
+    const onConnected = () => {
+        console.log("connected");
+
+        stompClient.subscribe(
+            "/topic/notification",
+            // "/user/" + currentUser.id + "/queue/messages",
+            onMessageReceived
+        );
+    };
+
+    const sendMessage = (msg) => {
+        if (msg.trim() !== "") {
+            const message = {
+                // senderId: currentUser.id,
+                // recipientId: activeContact.id,
+                // senderName: currentUser.name,
+                // recipientName: activeContact.name,
+                // content: msg,
+                // timestamp: new Date(),
+                title: 'title1'
+            };
+
+            console.log("before seending")
+            stompClient.send("/app/note", {}, JSON.stringify(message));
+            console.log("after sending")
+        }
+    };
+
+</script>
+</html>
